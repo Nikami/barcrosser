@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import type { TesterResponse } from '@barcrosser/shared';
 import { TesterService } from '@core/services/tester';
+import { AuthService } from '@core/services/auth/auth.service';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
@@ -21,6 +22,7 @@ import { SharedModule } from '@shared/shared.module';
 export class TesterComponent {
   private readonly testerService = inject(TesterService);
   private readonly snackBar = inject(MatSnackBar);
+  readonly authService = inject(AuthService);
 
   readonly form = new FormGroup({
     value: new FormControl('', {
@@ -32,6 +34,13 @@ export class TesterComponent {
   readonly isLoading = signal(false);
   readonly response = signal<TesterResponse | null>(null);
   readonly errorMessage = signal<string | null>(null);
+
+  login(): void {
+    this.authService.login({ username: 'testuser', password: 'testpass123' }).subscribe({
+      next: () => this.snackBar.open('Logged in as testuser', 'Close', { duration: 3000 }),
+      error: () => this.snackBar.open('Login failed!', 'Close', { duration: 3000 }),
+    });
+  }
 
   onSubmit(): void {
     if (this.form.invalid) return;
