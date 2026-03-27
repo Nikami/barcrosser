@@ -1,0 +1,36 @@
+# AI Agent Ignore File
+# Files and directories listed here will NOT be read by AI agents.
+# Format is similar to .gitignore
+
+# Environment and secrets
+.env
+.env.*
+*.env
+*.env.*
+**/.env
+**/.env.*
+
+# Secret directories
+**/secrets/
+**/secret/
+**/.secrets/
+
+# Key files
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Auth tokens / credentials
+**/credentials.json
+**/serviceAccount.json
+**/firebase-adminsdk*.json
+
+# Vercel deployment tokens
+.vercel/
+
+# Local overrides with real secrets
+*.local

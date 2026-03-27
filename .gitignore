@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+
+# Angular specific
+web/.angular/
+web/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+*.local
+
+# Vercel
+.vercel/
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# NestJS
+server/dist/
+
+# Misc
+*.pem

@@ -1,0 +1,31 @@
+{
+  "name": "barcrosser",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently --names \"WEB,SERVER\" --prefix-colors \"cyan,magenta\" \"npm run dev -w web\" \"npm run dev -w server\"",
+    "dev:web": "npm run dev -w web",
+    "dev:server": "npm run dev -w server",
+    "test": "concurrently --names \"WEB,SERVER\" --prefix-colors \"cyan,magenta\" \"npm run test -w web\" \"npm run test -w server\"",
+    "test:web": "npm run test -w web",
+    "test:server": "npm run test -w server",
+    "build": "npm run build -w shared && npm run build -w web && npm run build -w server",
+    "build:web": "npm run build -w web",
+    "build:server": "npm run build -w server",
+    "lint": "concurrently \"npm run lint -w web\" \"npm run lint -w server\"",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "vercel": "^41.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

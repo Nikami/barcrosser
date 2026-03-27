@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "framework": null,
+  "outputDirectory": "web/dist/web/browser",
+  "builds": [
+    {
+      "src": "server/src/main.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["server/src/**", "shared/src/**"]
+      }
+    },
+    {
+      "src": "web/dist/web/browser/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server/src/main.ts"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "web/dist/web/browser/assets/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "web/dist/web/browser/index.html"
+    }
+  ]
+}
