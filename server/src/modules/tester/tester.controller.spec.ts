@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { describe, beforeEach, it, expect } from 'vitest';
 import { TesterController } from './tester.controller';
 import { TesterService } from './tester.service';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
