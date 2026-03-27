@@ -8,7 +8,11 @@ import { TesterModule } from './modules/tester/tester.module';
 @Module({
   imports: [
     // Config (global — доступен везде)
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
+      envFilePath: ['.env', '../.env', '../../.env'],
+    }),
 
     // MongoDB через Mongoose
     MongooseModule.forRootAsync({
