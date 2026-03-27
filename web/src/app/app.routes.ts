@@ -1,3 +1,8 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { TesterComponent } from './features/tester';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'tester', pathMatch: 'full' },
+  { path: 'tester', component: TesterComponent },
+];

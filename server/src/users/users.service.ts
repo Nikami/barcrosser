@@ -6,7 +6,9 @@ import { User, UserDocument } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+  ) {}
 
   async findByUsername(username: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ username: username.toLowerCase() }).exec();
@@ -14,11 +16,17 @@ export class UsersService {
 
   async createUser(username: string, password: string): Promise<UserDocument> {
     const hash = await bcrypt.hash(password, 10);
-    const user = new this.userModel({ username: username.toLowerCase(), password: hash });
+    const user = new this.userModel({
+      username: username.toLowerCase(),
+      password: hash,
+    });
     return user.save();
   }
 
-  async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+  async validatePassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
 
