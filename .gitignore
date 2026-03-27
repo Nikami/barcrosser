@@ -53,3 +53,5 @@ server/dist/
 
 # Misc
 *.pem
+
+.vercel
