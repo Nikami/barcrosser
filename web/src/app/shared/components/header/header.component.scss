@@ -1,0 +1,39 @@
+.app-header-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.theme-btn {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.active-theme {
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+:host-context(.dark-theme) {
+  .active-theme {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 600px) {
+  .theme-label {
+    display: none;
+  }
+}

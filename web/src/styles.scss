@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-
+@use 'app/shared/styles/colors';
 @include mat.core();
 
 $theme: mat.define-theme((
@@ -15,9 +15,29 @@ $theme: mat.define-theme((
   density: (scale: 0),
 ));
 
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$cyan-palette,
+    tertiary: mat.$orange-palette,
+  ),
+  typography: (
+    brand-family: 'Inter, Roboto, sans-serif',
+    bold-weight: 700,
+  ),
+  density: (scale: 0),
+));
+
 html {
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
+  
+  &.dark-theme {
+    @include mat.all-component-colors($dark-theme);
+    @include mat.color-variants-backwards-compatibility($dark-theme);
+    background-color: var(--mat-sys-background); /* Dark theme default background */
+    color: var(--mat-sys-on-background);
+  }
 }
 
 * {
@@ -29,5 +49,5 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
-  background-color: #f8f9fa;
+  background-color: var(--mat-sys-background);
 }

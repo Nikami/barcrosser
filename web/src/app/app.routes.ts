@@ -1,8 +1,8 @@
 import type { Routes } from '@angular/router';
 
-import { TesterComponent } from './features/tester';
+import { HomeComponent } from './features/home';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'tester', pathMatch: 'full' },
-  { path: 'tester', component: TesterComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
 ];

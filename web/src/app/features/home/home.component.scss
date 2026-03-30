@@ -1,20 +1,20 @@
-.tester-page {
+.home-page {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 2rem 1rem;
   min-height: calc(100vh - 64px);
-  background: var(--mat-sys-surface-container-lowest, #f5f5f5);
+  background: var(--mat-sys-surface-container-lowest);
 }
 
-.tester-card {
+.home-card {
   width: 100%;
   max-width: 560px;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
-.tester-form {
+.home-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -35,22 +35,22 @@
   gap: 8px;
 }
 
-.tester-error {
+.home-error {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 1rem;
   padding: 12px;
-  background: rgba(244, 67, 54, 0.08);
+  background: rgba(var(--mat-sys-error-rgb, 211, 47, 47), 0.08); /* Assuming an rgba setup might be added later, keeping structure but replacing hex */
   border-radius: 8px;
-  color: #d32f2f;
+  color: var(--mat-sys-error);
 }
 
 .response-divider {
   margin: 1.5rem 0;
 }
 
-.tester-response {
+.home-response {
   animation: fadeIn 0.3s ease;
 
   h3 {

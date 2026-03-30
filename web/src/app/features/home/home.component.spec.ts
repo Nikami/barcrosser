@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { TesterComponent } from './tester.component';
+import { HomeComponent } from './home.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-describe('TesterComponent', () => {
+describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TesterComponent],
+      imports: [HomeComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -16,14 +16,14 @@ describe('TesterComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the tester component', () => {
-    const fixture = TestBed.createComponent(TesterComponent);
+  it('should create the home component', () => {
+    const fixture = TestBed.createComponent(HomeComponent);
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
   it('should have an invalid form on init', () => {
-    const fixture = TestBed.createComponent(TesterComponent);
+    const fixture = TestBed.createComponent(HomeComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.form.invalid).toBe(true);

@@ -1,0 +1,27 @@
+<mat-toolbar color="primary" class="app-header-toolbar">
+  <div class="nav-links">
+    <a mat-button routerLink="/">Home</a>
+  </div>
+  
+  <span class="spacer"></span>
+  
+  <!-- Theme Switcher -->
+  <button mat-button [matMenuTriggerFor]="themeMenu" class="theme-btn" aria-label="Select theme">
+    <mat-icon>palette</mat-icon>
+    <span class="theme-label">Theme</span>
+  </button>
+  
+  <mat-menu #themeMenu="matMenu">
+    <button mat-menu-item (click)="setTheme('default')" [class.active-theme]="currentTheme() === 'default'">
+      <span>Default</span>
+    </button>
+    <button mat-menu-item (click)="setTheme('dark')" [class.active-theme]="currentTheme() === 'dark'">
+      <span>Dark</span>
+    </button>
+  </mat-menu>
+  
+  <!-- Logout mock button -->
+  <button mat-icon-button (click)="logout()" aria-label="Logout" class="logout-btn">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

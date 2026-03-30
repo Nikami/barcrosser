@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, RouterModule],
+  imports: [CommonModule, SharedModule, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

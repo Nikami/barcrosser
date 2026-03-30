@@ -1,0 +1,17 @@
+.app-footer-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+@media (max-width: 600px) {
+  .footer-text {
+    font-size: 12px;
+    text-align: center;
+  }
+}
