@@ -4,19 +4,41 @@
       <mat-card-title>Hello World — Home</mat-card-title>
       <mat-card-subtitle>Enter a value and submit to test the API</mat-card-subtitle>
       @if (!authService.isLoggedIn()) {
-        <button mat-stroked-button color="accent" (click)="login()" type="button" style="margin-left: auto;">
+        <button
+          mat-stroked-button
+          color="accent"
+          (click)="login()"
+          type="button"
+          style="margin-left: auto"
+        >
           Login as Default User
         </button>
       } @else {
-        <span style="margin-left: auto; color: green; font-size: 0.9em; display: flex; align-items: center;">
-          <mat-icon style="margin-right: 4px;">check_circle</mat-icon> Logged In
+        <span
+          style="
+            margin-left: auto;
+            color: green;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <mat-icon style="margin-right: 4px">check_circle</mat-icon>
+          Logged In
         </span>
       }
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="home-form">
-        <mat-form-field appearance="outline" class="full-width">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        class="home-form"
+      >
+        <mat-form-field
+          appearance="outline"
+          class="full-width"
+        >
           <mat-label>Your message</mat-label>
           <input
             matInput
@@ -47,7 +69,10 @@
       </form>
 
       @if (errorMessage()) {
-        <div class="home-error" role="alert">
+        <div
+          class="home-error"
+          role="alert"
+        >
           <mat-icon color="warn">error_outline</mat-icon>
           <span>{{ errorMessage() }}</span>
         </div>
@@ -57,8 +82,14 @@
         <mat-divider class="response-divider" />
         <div class="home-response">
           <h3>Response</h3>
-          <p><strong>Value:</strong> {{ response()!.value }}</p>
-          <p><strong>UUID:</strong> <code>{{ response()!.id }}</code></p>
+          <p>
+            <strong>Value:</strong>
+            {{ response()!.value }}
+          </p>
+          <p>
+            <strong>UUID:</strong>
+            <code>{{ response()!.id }}</code>
+          </p>
         </div>
       }
     </mat-card-content>
