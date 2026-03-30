@@ -5,7 +5,7 @@ import { SharedModule } from '../../shared.module';
 import { ThemeService, type Theme } from '../../../core/services/theme.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'bc-header',
   standalone: true,
   imports: [
     CommonModule,

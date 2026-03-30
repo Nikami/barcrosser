@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="app-header-toolbar">
+<mat-toolbar color="primary" class="header-toolbar">
   <div class="nav-links">
     <a mat-button routerLink="/">Home</a>
   </div>
@@ -10,7 +10,7 @@
     <mat-icon>palette</mat-icon>
     <span class="theme-label">Theme</span>
   </button>
-  
+
   <mat-menu #themeMenu="matMenu">
     <button mat-menu-item (click)="setTheme('default')" [class.active-theme]="currentTheme() === 'default'">
       <span>Default</span>

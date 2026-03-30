@@ -12,7 +12,7 @@ import { AuthService } from '@core/services/auth/auth.service';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({
-  selector: 'app-home',
+  selector: 'bc-home',
   standalone: true,
   imports: [SharedModule],
   templateUrl: './home.component.html',

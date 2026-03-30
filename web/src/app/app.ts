@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'bc-root',
   standalone: true,
   imports: [CommonModule, SharedModule, RouterModule],
   templateUrl: './app.html',

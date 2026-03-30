@@ -1,14 +1,14 @@
 :root {
-  --mat-sys-background: #f8f9fa;
-  --mat-sys-on-background: #000000;
-  --mat-sys-surface-container-lowest: #f5f5f5;
-  --mat-sys-error: #d32f2f;
+  --bc-sys-background: #f8f9fa;
+  --bc-sys-on-background: #000000;
+  --bc-sys-surface-container-lowest: #f5f5f5;
+  --bc-sys-error: #d32f2f;
 }
 
 html.dark-theme,
 body.dark-theme {
-  --mat-sys-background: #121212;
-  --mat-sys-on-background: #e0e0e0;
-  --mat-sys-surface-container-lowest: #1e1e1e;
-  --mat-sys-error: #ef5350;
+  --bc-sys-background: #121212;
+  --bc-sys-on-background: #e0e0e0;
+  --bc-sys-surface-container-lowest: #1e1e1e;
+  --bc-sys-error: #ef5350;
 }

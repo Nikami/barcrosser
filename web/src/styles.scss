@@ -35,8 +35,8 @@ html {
   &.dark-theme {
     @include mat.all-component-colors($dark-theme);
     @include mat.color-variants-backwards-compatibility($dark-theme);
-    background-color: var(--mat-sys-background); /* Dark theme default background */
-    color: var(--mat-sys-on-background);
+    background-color: var(--bc-sys-background); /* Dark theme default background */
+    color: var(--bc-sys-on-background);
   }
 }
 
@@ -49,5 +49,5 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
-  background-color: var(--mat-sys-background);
+  background-color: var(--bc-sys-background);
 }

@@ -4,7 +4,7 @@
   align-items: flex-start;
   padding: 2rem 1rem;
   min-height: calc(100vh - 64px);
-  background: var(--mat-sys-surface-container-lowest);
+  background: var(--bc-sys-surface-container-lowest);
 }
 
 .home-card {
@@ -41,9 +41,9 @@
   gap: 8px;
   margin-top: 1rem;
   padding: 12px;
-  background: rgba(var(--mat-sys-error-rgb, 211, 47, 47), 0.08); /* Assuming an rgba setup might be added later, keeping structure but replacing hex */
+  background: rgba(var(--bc-sys-error-rgb, 211, 47, 47), 0.08); /* Assuming an rgba setup might be added later, keeping structure but replacing hex */
   border-radius: 8px;
-  color: var(--mat-sys-error);
+  color: var(--bc-sys-error);
 }
 
 .response-divider {
