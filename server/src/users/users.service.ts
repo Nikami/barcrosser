@@ -45,4 +45,8 @@ export class UsersService {
       console.log('🌱 Seeded default user: testuser / testpass123');
     }
   }
+  async updateLastBankingDate(userId: string, date: Date): Promise<void> {
+    await this.userModel.updateOne({ _id: userId }, { $set: { lastBankingDate: date } }).exec();
+  }
 }
+

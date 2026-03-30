@@ -6,10 +6,13 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ timestamps: true, collection: 'users' })
 export class User {
   @Prop({ required: true, unique: true, trim: true, lowercase: true })
-  username: string;
+  username!: string;
 
   @Prop({ required: true })
-  password: string; // bcryptjs hashed
+  password!: string;
+
+  @Prop({ type: Date })
+  lastBankingDate?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
