@@ -1,20 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@shared/shared.module';
 import type { TesterResponse } from '@barcrosser/shared';
 import { TesterService } from '@core/services/tester';
 import { AuthService } from '@core/services/auth/auth.service';
 import { SharedModule } from '@shared/shared.module';
+import { HeaderComponent, FooterComponent } from '@shared/components';
 
 @Component({
   selector: 'bc-home',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, HeaderComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

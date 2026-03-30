@@ -8,6 +8,17 @@
       {
         "except": ["first-nested", "after-single-line-comment"]
       }
+    ],
+    "scss/dollar-variable-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested"],
+        "ignore": [
+          "after-comment",
+          "inside-single-line-block",
+          "after-dollar-variable"
+        ]
+      }
     ]
   }
 }

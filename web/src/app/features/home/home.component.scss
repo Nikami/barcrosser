@@ -1,17 +1,27 @@
+$header-height: 64px;
+$footer-height: 64px;
+$vh-offset: $header-height + $footer-height;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .home-page {
+  align-items: flex-start;
+  background: var(--bc-sys-surface-container-lowest);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  min-height: calc(100vh - $vh-offset);
   padding: 2rem 1rem;
-  min-height: calc(100vh - 64px);
-  background: var(--bc-sys-surface-container-lowest);
 }
 
 .home-card {
-  width: 100%;
-  max-width: 560px;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  max-width: 560px;
+  width: 100%;
 }
 
 .home-form {
@@ -26,24 +36,24 @@
 }
 
 .submit-button {
-  align-self: flex-start;
-  min-width: 140px;
-  height: 42px;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  align-self: flex-start;
+  display: flex;
   gap: 8px;
+  height: 42px;
+  justify-content: center;
+  min-width: 140px;
 }
 
 .home-error {
-  display: flex;
   align-items: center;
+  background: rgb(var(--bc-sys-error-rgb, 211, 47, 47), 0.08);
+  border-radius: 8px;
+  color: var(--bc-sys-error);
+  display: flex;
   gap: 8px;
   margin-top: 1rem;
   padding: 12px;
-  background: rgba(var(--bc-sys-error-rgb, 211, 47, 47), 0.08); /* Assuming an rgba setup might be added later, keeping structure but replacing hex */
-  border-radius: 8px;
-  color: var(--bc-sys-error);
 }
 
 .response-divider {
@@ -51,29 +61,36 @@
 }
 
 .home-response {
-  animation: fadeIn 0.3s ease;
+  animation: fade-in 0.3s ease;
 
   h3 {
-    margin: 0 0 0.75rem;
     font-size: 1rem;
     font-weight: 600;
+    margin: 0 0 0.75rem;
   }
 
   p {
-    margin: 0.4rem 0;
     font-size: 0.95rem;
+    margin: 0.4rem 0;
   }
 
   code {
+    background: rgb(0 0 0 / 6%);
+    border-radius: 4px;
     font-family: 'Roboto Mono', monospace;
     font-size: 0.85rem;
-    background: rgba(0, 0, 0, 0.06);
     padding: 2px 6px;
-    border-radius: 4px;
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

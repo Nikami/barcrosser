@@ -1,40 +1,49 @@
 @use '@angular/material' as mat;
 @use 'app/shared/styles/colors';
-@include mat.core();
+@include mat.core;
 
-$theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  typography: (
-    brand-family: 'Inter, Roboto, sans-serif',
-    bold-weight: 700,
-  ),
-  density: (scale: 0),
-));
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: (
+      brand-family: 'Inter, Roboto, sans-serif',
+      bold-weight: 700,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
 
-$dark-theme: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$cyan-palette,
-    tertiary: mat.$orange-palette,
-  ),
-  typography: (
-    brand-family: 'Inter, Roboto, sans-serif',
-    bold-weight: 700,
-  ),
-  density: (scale: 0),
-));
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    typography: (
+      brand-family: 'Inter, Roboto, sans-serif',
+      bold-weight: 700,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
 
 html {
   @include mat.all-component-themes($theme);
   @include mat.color-variants-backwards-compatibility($theme);
-  
+
   &.dark-theme {
     @include mat.all-component-colors($dark-theme);
     @include mat.color-variants-backwards-compatibility($dark-theme);
+
     background-color: var(--bc-sys-background); /* Dark theme default background */
     color: var(--bc-sys-on-background);
   }
@@ -46,8 +55,11 @@ html {
 
 html,
 body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
   background-color: var(--bc-sys-background);
+  display: flex;
+  flex-direction: column;
+  font-family: Inter, Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }

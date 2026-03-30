@@ -1,9 +1,5 @@
-.bc-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-main {
+.main {
+  align-items: center;
+  display: flex;
   width: 100%;
 }
