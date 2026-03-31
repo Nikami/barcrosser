@@ -1,37 +1,9 @@
-# Barcrosser Project Context
+# AGENTS Redirect
 
-## Project Overview
-- Monorepo with npm workspaces: `web`, `server`, `shared`.
-- Main stack:
-- `server`: NestJS + Mongoose.
-- `web`: Angular.
-- `shared`: DTOs/types used by both apps.
+Primary project instructions moved to `.ai/AGENTS.md`.
 
-## Repository Structure
-- `server/src`: backend modules, auth, users, business logic.
-- `web/src`: frontend app and feature modules.
-- `shared/src`: shared contracts and DTOs.
-
-## Common Commands
-- Install deps: `npm install` (repo root).
-- Run full dev: `npm run dev` (runs web + server).
-- Run only backend: `npm run dev:server`.
-- Run only frontend: `npm run dev:web`.
-- Run tests (all): `npm run test`.
-- Build all: `npm run build`.
-
-## Working Rules
-- Prefer minimal, focused changes.
-- Keep DTO contracts in `shared` backward compatible when possible.
-- When changing API payloads, update both `server` and `web` usages.
-- Run relevant tests/lint after non-trivial changes.
-
-## Backend Notes
-- Feature modules live in `server/src/modules/*`.
-- Auth and users are in `server/src/auth` and `server/src/users`.
-- Forum/banking logic is implemented under modules and Mongoose schemas.
-
-## Frontend Notes
-- Feature pages are in `web/src/app/features/*`.
-- Shared UI and styles are in `web/src/app/shared`.
-- Core services are in `web/src/app/core/services`.
+Read order for token-efficient context:
+1. `.ai/CURRENT.md`
+2. `.ai/AGENTS.md`
+3. `.ai/AI_TASK_BOARD.md` (only if needed)
+4. `.ai/AI_HANDOFF.md` and `.ai/AI_WORKLOG.md` (only if needed)
