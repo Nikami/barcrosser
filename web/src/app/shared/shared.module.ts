@@ -13,6 +13,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 export { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -27,6 +34,12 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatDividerModule,
   MatMenuModule,
+  MatTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatTooltipModule,
+  MatSlideToggleModule,
+  MatProgressBarModule,
 ];
 
 /**

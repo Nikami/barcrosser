@@ -1,0 +1,153 @@
+<bc-header />
+
+<div class="settings-page">
+
+  <div class="page-header">
+    <h1 class="page-title">Settings</h1>
+    <p class="page-subtitle">Manage your forum accounts used for banking</p>
+  </div>
+
+  <!-- ── Add / Update Accounts Form ── -->
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>manage_accounts</mat-icon>
+        Add Forum Accounts
+      </mat-card-title>
+      <mat-card-subtitle>New accounts are added; existing names are updated automatically.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div formArrayName="entries">
+          @for (entry of entries.controls; track $index) {
+            <div class="entry-row" [formGroupName]="$index">
+              <span class="entry-index">#{{ $index + 1 }}</span>
+
+              <mat-form-field appearance="outline" class="field-name">
+                <mat-label>Forum username</mat-label>
+                <input matInput formControlName="name" placeholder="e.g. varka" autocomplete="off" />
+                @if (entry.get('name')?.hasError('required')) {
+                  <mat-error>Username is required</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="field-password">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" autocomplete="new-password" />
+                @if (entry.get('password')?.hasError('required')) {
+                  <mat-error>Password is required</mat-error>
+                }
+              </mat-form-field>
+
+              <button
+                mat-icon-button
+                type="button"
+                color="warn"
+                [disabled]="entries.length === 1"
+                (click)="removeEntry($index)"
+                matTooltip="Remove this entry"
+              >
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="addEntry()" id="btn-add-entry">
+            <mat-icon>add</mat-icon>
+            Add another account
+          </button>
+
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid || saving()"
+            id="btn-save-accounts"
+          >
+            @if (saving()) {
+              <mat-spinner diameter="18" />
+            } @else {
+              <mat-icon>save</mat-icon>
+            }
+            Save accounts
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ── Existing Accounts Table ── -->
+  <mat-card class="table-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>list</mat-icon>
+        Saved Accounts
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (loading()) {
+        <div class="loading-state">
+          <mat-spinner diameter="36" />
+        </div>
+      } @else if (accountsService.accounts().length === 0) {
+        <div class="empty-state">
+          <mat-icon class="empty-icon">inbox</mat-icon>
+          <p>No accounts saved yet. Use the form above to add one.</p>
+        </div>
+      } @else {
+        <table mat-table [dataSource]="accountsService.accounts()" class="accounts-table">
+          <!-- Name -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Username</th>
+            <td mat-cell *matCellDef="let acc">{{ acc.name }}</td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Active</th>
+            <td mat-cell *matCellDef="let acc">
+              <mat-slide-toggle
+                [checked]="acc.isActive"
+                (change)="toggleAccount(acc)"
+                color="primary"
+                [id]="'toggle-' + acc.id"
+              />
+            </td>
+          </ng-container>
+
+          <!-- Created at -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef>Added</th>
+            <td mat-cell *matCellDef="let acc">{{ acc.createdAt | date: 'dd.MM.yyyy' }}</td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let acc">
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteAccount(acc)"
+                matTooltip="Delete account"
+                [id]="'delete-' + acc.id"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<bc-footer />
+

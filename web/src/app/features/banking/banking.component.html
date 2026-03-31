@@ -1,0 +1,106 @@
+<bc-header />
+
+<div class="banking-page">
+  <div class="page-header">
+    <h1 class="page-title">Banking</h1>
+    <p class="page-subtitle">Trigger the automated post-counting process for your forum accounts</p>
+  </div>
+
+  <!-- ── Active Accounts Preview ── -->
+  <mat-card class="accounts-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>people_alt</mat-icon>
+        Active Accounts
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (loadingAccounts()) {
+        <div class="loading-row">
+          <mat-spinner diameter="28" />
+          <span>Loading accounts…</span>
+        </div>
+      } @else if (activeAccounts.length === 0) {
+        <div class="empty-accounts">
+          <mat-icon>warning_amber</mat-icon>
+          <span>No active forum accounts found. Go to <a routerLink="/settings">Settings</a> to add some.</span>
+        </div>
+      } @else {
+        <div class="account-chips">
+          @for (acc of activeAccounts; track acc.id) {
+            <span class="account-chip">
+              <mat-icon>person</mat-icon>{{ acc.name }}
+            </span>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ── Banking Run Form ── -->
+  <mat-card class="run-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>play_circle</mat-icon>
+        Run Banking
+      </mat-card-title>
+      <mat-card-subtitle>Select the date from which posts should be counted</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="runBanking()">
+        <mat-form-field appearance="outline" class="date-field">
+          <mat-label>Since date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="sinceDate"
+            placeholder="DD.MM.YYYY"
+            readonly
+            id="input-since-date"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="picker" />
+          <mat-datepicker #picker />
+          @if (form.get('sinceDate')?.hasError('required')) {
+            <mat-error>Please select a start date</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="run-actions">
+          <button
+            mat-flat-button
+            color="accent"
+            type="submit"
+            [disabled]="form.invalid || running() || activeAccounts.length === 0"
+            id="btn-run-banking"
+          >
+            @if (running()) {
+              <ng-container>
+                <mat-spinner diameter="18" />
+                <span>Running…</span>
+              </ng-container>
+            } @else {
+              <ng-container>
+                <mat-icon>bolt</mat-icon>
+                <span>Start banking run</span>
+              </ng-container>
+            }
+          </button>
+        </div>
+      </form>
+
+      @if (running()) {
+        <mat-progress-bar mode="indeterminate" class="progress" />
+      }
+
+      @if (resultMessage()) {
+        <div class="result-box" [class.result-error]="resultMessage()?.startsWith('Error')">
+          <mat-icon>{{ resultMessage()?.startsWith('Error') ? 'error_outline' : 'check_circle_outline' }}</mat-icon>
+          <span>{{ resultMessage() }}</span>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<bc-footer />
