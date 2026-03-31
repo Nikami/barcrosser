@@ -1,19 +1,30 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { ForumAccountDto, UpsertForumAccountDto } from '@barcrosser/shared';
 import { CryptoService, EncryptedPayload } from '@common/crypto.service';
-import { ForumAccount, ForumAccountDocument } from './schemas/forum-account.schema';
+import {
+  ForumAccount,
+  ForumAccountDocument,
+} from './schemas/forum-account.schema';
 
 @Injectable()
 export class ForumAccountsService {
   constructor(
-    @InjectModel(ForumAccount.name) private readonly accountModel: Model<ForumAccountDocument>,
+    @InjectModel(ForumAccount.name)
+    private readonly accountModel: Model<ForumAccountDocument>,
     private readonly crypto: CryptoService,
   ) {}
 
   // ---------- UPSERT (create or update by name) ----------
-  async upsert(userId: string, dto: UpsertForumAccountDto): Promise<ForumAccountDto> {
+  async upsert(
+    userId: string,
+    dto: UpsertForumAccountDto,
+  ): Promise<ForumAccountDto> {
     const encrypted: EncryptedPayload = this.crypto.encrypt(dto.password);
     const existing = await this.accountModel.findOne({
       userId: new Types.ObjectId(userId),
@@ -51,7 +62,10 @@ export class ForumAccountsService {
     return accounts.map((acc) => this.toDto(acc));
   }
 
-  async findOneOrFail(userId: string, id: string): Promise<ForumAccountDocument> {
+  async findOneOrFail(
+    userId: string,
+    id: string,
+  ): Promise<ForumAccountDocument> {
     const acc = await this.accountModel.findOne({
       _id: id,
       userId: new Types.ObjectId(userId),
@@ -61,7 +75,11 @@ export class ForumAccountsService {
   }
 
   // ---------- UPDATE by id ----------
-  async update(userId: string, id: string, dto: UpsertForumAccountDto): Promise<ForumAccountDto> {
+  async update(
+    userId: string,
+    id: string,
+    dto: UpsertForumAccountDto,
+  ): Promise<ForumAccountDto> {
     const acc = await this.findOneOrFail(userId, id);
     acc.name = dto.name;
     if (dto.password) {
@@ -91,7 +109,9 @@ export class ForumAccountsService {
   }
 
   // ---------- FOR BANKING: active accounts with decrypted passwords ----------
-  async getDecryptedAccounts(userId: string): Promise<Array<{ name: string; password: string }>> {
+  async getDecryptedAccounts(
+    userId: string,
+  ): Promise<Array<{ name: string; password: string }>> {
     const accounts = await this.accountModel.find({
       userId: new Types.ObjectId(userId),
       isActive: true,

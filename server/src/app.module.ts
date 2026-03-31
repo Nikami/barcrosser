@@ -7,7 +7,6 @@ import { TesterModule } from './modules/tester/tester.module';
 import { ForumAccountsModule } from './modules/forum-accounts/forum-accounts.module';
 import { BankingModule } from './modules/banking/banking.module';
 
-
 @Module({
   imports: [
     // Config (global — доступен везде)

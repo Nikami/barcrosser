@@ -46,7 +46,8 @@ export class UsersService {
     }
   }
   async updateLastBankingDate(userId: string, date: Date): Promise<void> {
-    await this.userModel.updateOne({ _id: userId }, { $set: { lastBankingDate: date } }).exec();
+    await this.userModel
+      .updateOne({ _id: userId }, { $set: { lastBankingDate: date } })
+      .exec();
   }
 }
-

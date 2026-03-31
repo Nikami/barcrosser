@@ -41,6 +41,8 @@ export class BankingService {
 
     await this.usersService.updateLastBankingDate(userId, new Date());
 
-    return { message: `Banking run completed for ${accounts.length} account(s).` };
+    return {
+      message: `Banking run completed for ${accounts.length} account(s).`,
+    };
   }
 }

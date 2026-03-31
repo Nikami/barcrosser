@@ -7,7 +7,7 @@ import { BankingController } from './banking.controller';
 @Module({
   imports: [
     ForumAccountsModule, // exports ForumAccountsService
-    UsersModule,         // exports UsersService
+    UsersModule, // exports UsersService
   ],
   providers: [BankingService],
   controllers: [BankingController],

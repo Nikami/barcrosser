@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 
 export interface EncryptedPayload {
-  iv: string;       // hex
-  authTag: string;  // hex
-  data: string;     // hex
+  iv: string; // hex
+  authTag: string; // hex
+  data: string; // hex
 }
 
 @Injectable()
@@ -25,7 +25,10 @@ export class CryptoService {
   encrypt(plainText: string): EncryptedPayload {
     const iv = randomBytes(12); // 96‑bit IV recommended for GCM
     const cipher = createCipheriv(this.algorithm, this.key, iv);
-    const encrypted = Buffer.concat([cipher.update(plainText, 'utf8'), cipher.final()]);
+    const encrypted = Buffer.concat([
+      cipher.update(plainText, 'utf8'),
+      cipher.final(),
+    ]);
     const authTag = cipher.getAuthTag();
     return {
       iv: iv.toString('hex'),
