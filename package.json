@@ -4,20 +4,18 @@
   "private": true,
   "workspaces": [
     "web",
-    "server",
+    "plugin",
     "shared"
   ],
   "scripts": {
-    "dev": "concurrently --names \"WEB,SERVER\" --prefix-colors \"cyan,magenta\" \"npm run dev -w web\" \"npm run dev -w server\"",
+    "dev": "concurrently --names \"WEB,PLUGIN\" --prefix-colors \"cyan,green\" \"npm run dev -w web\" \"npm run dev -w plugin\"",
     "dev:web": "npm run dev -w web",
-    "dev:server": "npm run dev -w server",
-    "test": "concurrently --names \"WEB,SERVER\" --prefix-colors \"cyan,magenta\" \"npm run test -w web\" \"npm run test -w server\"",
-    "test:web": "npm run test -w web",
-    "test:server": "npm run test -w server",
-    "build": "npm run build -w shared && npm run build -w web && npm run build -w server",
+    "dev:plugin": "npm run dev -w plugin",
+    "test": "npm run test -w web",
+    "build": "npm run build -w shared && npm run build -w web && npm run build -w plugin",
     "build:web": "npm run build -w web",
-    "build:server": "npm run build -w server",
-    "lint": "concurrently \"npm run lint -w web\" \"npm run lint -w server\"",
+    "build:plugin": "npm run build -w plugin",
+    "lint": "concurrently \"npm run lint -w web\" \"npm run lint -w plugin\"",
     "deploy": "vercel --prod"
   },
   "devDependencies": {

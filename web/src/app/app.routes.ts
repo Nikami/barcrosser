@@ -10,10 +10,5 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/settings').then((m) => m.SettingsComponent),
   },
-  {
-    path: 'banking',
-    loadComponent: () =>
-      import('./features/banking').then((m) => m.BankingComponent),
-  },
 ];
 

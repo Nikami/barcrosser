@@ -1,30 +1,28 @@
 # Barcrosser Project Context
 
 ## Project Overview
-- Monorepo with npm workspaces: `web`, `server`, `shared`.
+- Monorepo with npm workspaces: `web`, `plugin`, `shared`.
 - Main stack:
-- `server`: NestJS + Mongoose.
-- `web`: Angular.
-- `shared`: DTOs/types used by both apps.
+  - `plugin`: Tampermonkey UserScript (TypeScript, bundled via Webpack).
+  - `web`: Angular (passive DB frontend utilizing Dexie.js for IndexedDB storage).
+  - `shared`: DTOs/types used by both apps.
+- The `server` (NestJS + MongoDB) has been entirely removed. The system is fully browser-local.
 
 ## Repository Structure
-- `server/src`: backend modules, auth, users, business logic.
-- `web/src`: frontend app and feature modules.
-- `shared/src`: shared contracts and DTOs.
+- `plugin/src`: TypeScript scraper logic and Userscript metadata.
+- `web/src`: Angular frontend app, UI components, and `dexie.js` data receivers.
+- `shared/src`: Shared contracts and DTOs (e.g., `PostDTO`).
 
 ## Common Commands
 - Install deps: `npm install` (repo root).
-- Run full dev: `npm run dev` (runs web + server).
-- Run only backend: `npm run dev:server`.
-- Run only frontend: `npm run dev:web`.
-- Run tests (all): `npm run test`.
-- Build all: `npm run build`.
+- Run full dev: `npm run dev` (starts Angular and Webpack watch for plugin).
+- Build all: `npm run build` (builds shared, web, and plugin).
+- Run Angular tests: `npm run test` (only available for web).
 
 ## Working Rules
 - Prefer minimal, focused changes.
-- Keep DTO contracts in `shared` backward compatible when possible.
-- When changing API payloads, update both `server` and `web` usages.
-- Run relevant tests/lint after non-trivial changes.
+- Ensure any `PostDTO` changes match both the TypeScript scraper emit logic and the Angular Dexie reception schema.
+- Run relevant linters and builds after non-trivial changes.
 
 ## Multi-Agent Handoff Rules
 - Store shared context in `.ai/`.
@@ -34,14 +32,13 @@
 - History file: `.ai/AI_WORKLOG.md` (append-only; read only when needed).
 - At start of each session: read `.ai/CURRENT.md`; open other `.ai/*` files only if required.
 - At end of each session: update `.ai/CURRENT.md` and the relevant detailed file(s).
-- When switching between Codex and Antigravity built-in agent, continue from these files instead of chat history.
+- When switching between Agents, continue from these files instead of chat history.
 
-## Backend Notes
-- Feature modules live in `server/src/modules/*`.
-- Auth and users are in `server/src/auth` and `server/src/users`.
-- Forum/banking logic is implemented under modules and Mongoose schemas.
+## Plugin Notes
+- Scraping logic is built via webpack. It intercepts `*.barcross.ru` pages and sends a `postMessage` payload cross-origin to target Angular endpoint.
+- Built files reside in `plugin/dist/tracker.user.js`.
 
 ## Frontend Notes
 - Feature pages are in `web/src/app/features/*`.
+- Core services like `DataReceiverService` and `AppDatabase` are in `web/src/app/core/`.
 - Shared UI and styles are in `web/src/app/shared`.
-- Core services are in `web/src/app/core/services`.

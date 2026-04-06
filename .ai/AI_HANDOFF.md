@@ -1,28 +1,26 @@
 # AI Handoff
 
 ## Current Owner
-- Agent: Codex (OpenAI)
-- Timestamp: 2026-04-01 Europe/Prague
+- Agent: Antigravity (Google Deepmind)
+- Timestamp: 2026-04-06
 
 ## Current Focus
-- Set up shared cross-agent handoff workflow between Codex and Antigravity built-in agent.
+- The system was successfully migrated to a serverless architecture utilizing Webpack-built TS Tampermonkey scripts and Dexie local storage.
 
 ## Last Completed
-- Added common handoff protocol to `AGENTS.md`.
-- Created shared files:
-- `.ai/AI_HANDOFF.md`
-- `.ai/AI_TASK_BOARD.md`
-- `.ai/AI_WORKLOG.md`
-- `.ai/CURRENT.md`
+- Deleted the full `server` folder along with NestJS / MongoDB.
+- Created `plugin` folder, built with `webpack` and `tampermonkey` types.
+- Rewrote `web` to use `Dexie` via `AppDatabase`, removing HTTP calls and adding `DataReceiverService` to manage browser `postMessage` requests.
+- Updated `.ai/*` context files.
 
 ## In Progress
-- Waiting for first real development task to start using this workflow.
+- Waiting for test feedback on the Tampermonkey integration and next steps for the frontend UI.
 
 ## Blockers
 - None.
 
 ## Next Step
-- On the next coding task, update `.ai/AI_TASK_BOARD.md` status to `in_progress`, implement changes, then record results in `.ai/AI_WORKLOG.md` and refresh this file.
+- Finalize the Angular DOM output inside `HomeComponent` and fine-tune actual website parser elements inside the plugin.
 
 ## Token Policy
 - Always read `.ai/CURRENT.md` first.
@@ -30,8 +28,7 @@
 - Read `.ai/AI_WORKLOG.md` only for incident/debug history.
 
 ## Changed Files In Last Session
-- `AGENTS.md`
-- `.ai/AI_HANDOFF.md`
-- `.ai/AI_TASK_BOARD.md`
-- `.ai/AI_WORKLOG.md`
-- `.ai/CURRENT.md`
+- `package.json`
+- `plugin/*`
+- `web/src/app/*`
+- `.ai/*`

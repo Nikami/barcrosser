@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { DataReceiverService } from './core/services/data-receiver.service';
+
 @Component({
   selector: 'bc-root',
   standalone: true,
@@ -12,4 +14,8 @@ import { CommonModule } from '@angular/common';
 })
 export class App {
   readonly title = 'BarCrosser';
+
+  constructor(private readonly dataReceiver: DataReceiverService) {
+    this.dataReceiver.listen();
+  }
 }

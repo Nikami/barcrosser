@@ -1,8 +1,8 @@
-﻿# Current AI State
+# Current AI State
 
-- Owner: Codex (OpenAI)
-- Updated: 2026-04-01 Europe/Prague
-- Task: Shared handoff setup between Codex and Antigravity agent.
+- Owner: Antigravity (Google Deepmind)
+- Updated: 2026-04-06
+- Task: BarCrosser rewritten to use browser-based local architecture (Dexie + Tampermonkey).
 - Status: ready
-- Next step: start next real coding task and track it in `.ai/AI_TASK_BOARD.md`.
-- Last change: moved handoff files from repo root to `.ai/` for cleaner root and lower context noise.
+- Next step: UI improvements for `HomeComponent` JSON dumping and parsing edge-cases in the Tampermonkey script.
+- Last change: Replaced NestJS `server` with `plugin` workspace, integrated `dexie.js` into the `web` Angular app, updated `.ai/*` handoff docs.
