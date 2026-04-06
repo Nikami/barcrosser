@@ -1,37 +1,13 @@
 # AI Handoff
+Current Task: Rewrite `scraper.ts` to use GET requests for MyBB search logic, and change `userId` logic to `username` text.
 
-## Current Owner
-- Agent: Antigravity (Google Deepmind)
-- Timestamp: 2026-04-06
+## Context
+- The user provided manual HTTP headers from `barcross.ru` showing the search endpoint works directly via GET query parameters: `search.php?action=search&author=Varka&forum=10&search_in=0&sort_by=0&sort_dir=DESC&show_as=posts`.
+- The previous implementation used POST formData and `userId`, which fails MyBB validation due to CSRF tokens and type mismatch (author expects string nick, not ID).
+- We also lack `credentials: 'same-origin'` or `'include'` so we aren't using session cookies. 
+- I am updating `ui/form.ts` to ask for Nickname instead of ID.
+- I am updating `scraper.ts` to construct the GET URLSearchParams, use `credentials: 'same-origin'`, and properly fetch paginated links.
 
-## Current Focus
-- Polishing the userscript plugin logic with TailwindCSS injected inline, and finalizing the scraper POST requests.
-
-## Last Completed
-- Split Tampermonkey logic into `ui/form.ts`, `scraper/scraper.ts`, and `ui/notifications.ts`.
-- Configured Webpack with `postcss-loader`, `sass-loader`, and `tailwindcss@v3` prefixing classes with `bc-`.
-- Constructed comprehensive scraper leveraging direct `fetch()` to `search.php?action=search` mirroring real sessions.
-- Added timeout barriers, flood control checks, and nested-quote omission for correct post character counting.
-- Saved extracted logs sequentially directly to `GM_setValue('forum_sync_cache', data)`.
-
-## In Progress
-- None.
-
-## Blockers
-- None.
-
-## Next Step
-- Configure Angular frontend (`HomeComponent`) UI for reading the synced posts from the userscript caches / messages.
-
-## Token Policy
-- Always read `.ai/CURRENT.md` first.
-- Read `.ai/AI_TASK_BOARD.md` only when task status is needed.
-- Read `.ai/AI_WORKLOG.md` only for incident/debug history.
-
-## Changed Files In Last Session
-- `plugin/package.json`
-- `plugin/webpack.config.js`
-- `plugin/tailwind.config.js`, `postcss.config.js`
-- `plugin/src/styles/`
-- `plugin/src/ui/`, `plugin/src/scraper/`
-- `.ai/*`
+## Files Modified
+- `plugin/src/ui/form.ts`
+- `plugin/src/scraper/scraper.ts`

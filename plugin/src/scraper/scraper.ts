@@ -8,7 +8,7 @@ import { showNotification } from '../ui/notifications';
 import type { PostDTO } from '@shared/dto/post.dto'; // Reuse if possible or redefine type
 
 export interface ScraperConfig {
-  userId: number;
+  username: string;
   startDate: Date;
 }
 
@@ -24,36 +24,32 @@ export interface ScrapedPost {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function runScraper(config: ScraperConfig): Promise<void> {
-  const { userId, startDate } = config;
+  const { username, startDate } = config;
   const startTimestamp = startDate.getTime();
 
-  showNotification(`Начат поиск сообщений пользователя ID: ${userId}...`, 'info');
+  showNotification(`Начат поиск сообщений пользователя: ${username}...`, 'info');
 
   try {
-    // 1. Initial Search via POST request
-    const searchUrl = `https://${BC_FORUM_DOMAIN}/search.php?action=search`;
+    // 1. Initial Search via GET request (to avoid CSRF and mimic real browser search)
+    const searchParams = new URLSearchParams();
+    searchParams.append('action', 'search');
+    searchParams.append('author', username); // standard MyBB text input for author
+    searchParams.append('search_in', '0');
+    searchParams.append('sort_by', '0');
+    searchParams.append('sort_dir', 'DESC');
+    searchParams.append('show_as', 'posts');
 
-    const formData = new URLSearchParams();
-    formData.append('author_id', userId.toString()); // mybb uses author_id or author
-    // Or based on user exact request:
-    formData.append('user_id', userId.toString()); // Keep what user asked, but send both just in case MyBB uses author_id
-
-    // Add forums
-    [BC_FORUM_FANDOM_ID, BC_FORUM_ALT_ID, BC_FORUM_COMPLETED_ID].forEach((id) => {
-      formData.append('forum[]', id.toString());
+    // Add forums per user request standard syntax
+    [BC_FORUM_FANDOM_ID, BC_FORUM_ALT_ID, BC_FORUM_COMPLETED_ID].forEach(id => {
+      searchParams.append('forum[]', id.toString());
     });
 
-    formData.append('show_as', 'posts');
-    formData.append('sortby', 'lastpost'); // mybb default name is often sortby
-    formData.append('sortdir', 'DESC');
+    const searchUrl = `https://${BC_FORUM_DOMAIN}/search.php?${searchParams.toString()}`;
 
     // Simulate real browser request
     const response = await fetch(searchUrl, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      method: 'GET',
+      credentials: 'same-origin', // ensure cookies are sent for closed subforums
       redirect: 'follow', // standard MyBB search responds with a 302 redirect to search results page
     });
 
@@ -168,7 +164,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
           await delay(1500 + Math.random() * 1000);
 
           try {
-            const nextRes = await fetch(absoluteNext);
+            const nextRes = await fetch(absoluteNext, { credentials: 'same-origin' });
             currentHtml = await nextRes.text();
           } catch (err) {
             console.error('Ошибка пагинации:', err);

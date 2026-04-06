@@ -16,20 +16,20 @@ export function initUI(): void {
   title.className = `bc-text-lg bc-font-bold bc-mb-4 bc-text-center bc-text-blue-600`;
   formWrapper.appendChild(title);
 
-  // User ID Input
-  const userIdDiv = document.createElement('div');
-  userIdDiv.className = 'bc-mb-3';
-  const userIdLabel = document.createElement('label');
-  userIdLabel.innerText = 'ID пользователя:';
-  userIdLabel.className = 'bc-block bc-text-sm bc-font-medium bc-mb-1';
-  const userIdInput = document.createElement('input');
-  userIdInput.type = 'number';
-  userIdInput.placeholder = 'Например, 14';
-  userIdInput.value = GM_getValue('last_user_id', '') as string;
-  userIdInput.className = 'bc-w-full bc-p-2 bc-border bc-border-gray-300 bc-rounded bc-focus:outline-none bc-focus:border-blue-500';
-  userIdDiv.appendChild(userIdLabel);
-  userIdDiv.appendChild(userIdInput);
-  formWrapper.appendChild(userIdDiv);
+  // Username Input
+  const usernameDiv = document.createElement('div');
+  usernameDiv.className = 'bc-mb-3';
+  const usernameLabel = document.createElement('label');
+  usernameLabel.innerText = 'Никнейм пользователя:';
+  usernameLabel.className = 'bc-block bc-text-sm bc-font-medium bc-mb-1';
+  const usernameInput = document.createElement('input');
+  usernameInput.type = 'text';
+  usernameInput.placeholder = 'Например, Varka';
+  usernameInput.value = GM_getValue('last_username', '') as string;
+  usernameInput.className = 'bc-w-full bc-p-2 bc-border bc-border-gray-300 bc-rounded bc-focus:outline-none bc-focus:border-blue-500';
+  usernameDiv.appendChild(usernameLabel);
+  usernameDiv.appendChild(usernameInput);
+  formWrapper.appendChild(usernameDiv);
 
   // Date Input
   const dateDiv = document.createElement('div');
@@ -61,11 +61,11 @@ export function initUI(): void {
   
   syncBtn.onclick = async (e: MouseEvent) => {
     e.preventDefault();
-    const uid = parseInt(userIdInput.value, 10);
+    const uname = usernameInput.value.trim();
     const dateStr = dateInput.value;
 
-    if (!uid || isNaN(uid)) {
-        alert('Введите корректный ID пользователя.');
+    if (!uname) {
+        alert('Введите никнейм пользователя.');
         return;
     }
 
@@ -74,7 +74,7 @@ export function initUI(): void {
         return;
     }
 
-    GM_setValue('last_user_id', uid);
+    GM_setValue('last_username', uname);
     GM_setValue('last_sync_date', dateStr);
 
     syncBtn.disabled = true;
@@ -84,7 +84,7 @@ export function initUI(): void {
     const startDate = new Date(dateStr);
     
     try {
-        await runScraper({ userId: uid, startDate });
+        await runScraper({ username: uname, startDate });
     } finally {
         syncBtn.disabled = false;
         syncBtn.innerText = 'Начать скраппинг';
