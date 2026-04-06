@@ -2,7 +2,7 @@
 
 - Owner: Antigravity (Google Deepmind)
 - Updated: 2026-04-06
-- Task: BarCrosser rewritten to use browser-based local architecture (Dexie + Tampermonkey).
+- Task: BarCrosser plugin tracking refactor and Tailwind styling.
 - Status: ready
-- Next step: UI improvements for `HomeComponent` JSON dumping and parsing edge-cases in the Tampermonkey script.
-- Last change: Replaced NestJS `server` with `plugin` workspace, integrated `dexie.js` into the `web` Angular app, updated `.ai/*` handoff docs.
+- Next step: Add UI to display forum posts in `HomeComponent`.
+- Last change: Refactored Tampermonkey script logic into multiple files, added Webpack Tailwind/SCSS bundle support, and implemented the full DOM-based scraper logic with pagination & flood-protection timeouts.

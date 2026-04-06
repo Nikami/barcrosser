@@ -18,3 +18,11 @@
   - Implemented `DataReceiverService` to manage browser `postMessage` cross-origin syncing.
   - Extensively updated all `.ai/` documentation layers to reflect current paradigm.
 - Result: the project is successfully building under the new architecture.
+
+## 2026-04-06 (part 2) - Antigravity
+- Goal: Refactor Tampermonkey plugin structurally and include TailwindCSS styling inline.
+- Actions:
+  - Discarded inline script execution for modular TS imports (`constants.ts`, `ui/form.ts`, `ui/notifications.ts`, `scraper/scraper.ts`).
+  - Added native `fetch` POST tracking against `search.php` to simulate user actions, supporting redirect evaluation and flood rate limiting.
+  - Setup loaders in `webpack.config.js` with `sass-loader`, and `tailwindcss` (v3 to respect simple JS bundler structures), using `bc-` prefix for all styles.
+- Result: Tracker logic natively processes and isolates SCSS, providing clean Tailwind notifications seamlessly embedded via Tampermonkey.

@@ -7,7 +7,6 @@
 
 ## Todo
 - Add UI to display forum posts in `HomeComponent` (currently it only dumps `| json`).
-- Refine `.post` tracking selectors inside `plugin/src/index.ts` to actually match the forum HTML structure.
 
 ## In Progress
 - None.
@@ -16,6 +15,7 @@
 - None.
 
 ## Done
+- Refine `.post` tracking selectors inside `plugin/src/scraper/scraper.ts` and fetch logic logic to match actual mybb functionality.
 - Create shared handoff files for Codex and Antigravity built-in agent.
 - Migrate BarCrosser away from backend storage to Dexie/Tampermonkey plugin.
 - Delete unused Angular components and NestJS server.
