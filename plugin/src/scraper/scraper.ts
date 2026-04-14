@@ -20,7 +20,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
   const { username, startDate } = config;
   const startTimestamp = startDate.getTime();
 
-  showNotification(`Начат поиск сообщений пользователя: ${username}...`, 'info');
+  showNotification(`Начат поиск постов пользователя: ${username}...`, 'info');
 
   try {
     // 1. Initial Search via GET request (to avoid CSRF and mimic real browser search)
@@ -77,7 +77,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
       const postElements = doc.querySelectorAll('.post');
 
       if (postElements.length === 0 && pageCount === 1) {
-        showNotification('Сообщения не найдены по заданным критериям.', 'info');
+        showNotification('Посты не найдены по заданным критериям.', 'info');
         return;
       }
 
@@ -171,6 +171,8 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
       }
     }
 
+    console.log(allPosts);
+
     // Save final array
     GM_setValue('forum_sync_cache', allPosts);
     showNotification(
@@ -183,4 +185,4 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
   }
 }
 // placeholder mapping to fix TS complaints on DEV_HOSTNAME if not used
-const DEV_HOSTNAME = 'http://localhost';
+const DEV_HOSTNAME = typeof window !== 'undefined' ? window.location.origin : 'http://localhost';

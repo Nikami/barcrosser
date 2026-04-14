@@ -31,5 +31,8 @@
     "webpack": "^5.105.4",
     "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "lucide": "^1.8.0"
   }
 }

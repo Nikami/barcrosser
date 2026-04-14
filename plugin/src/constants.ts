@@ -1,5 +1,5 @@
 declare const process: any;
-const isMock = typeof process !== 'undefined' && process.env && process.env.MOCK;
+const isMock = process.env.MOCK === true || process.env.MOCK === 'true';
 export const BASE_URL = isMock ? "http://localhost:8080" : "https://barcross.ru";
 
 export const BC_FORUM_DOMAIN = "barcross.ru";
