@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --port 8080 --mode development",
     "start": "cross-env MOCK=true webpack serve --port 8080 --mode development",
+    "dev": "webpack serve --port 8080 --mode development",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

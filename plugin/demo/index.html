@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BarCrosser Tracker - Demo</title>
+
+    <!-- Mock Tampermonkey APIs for Local Dev Server -->
+    <script>
+        window.GM_setValue = function(key, value) {
+            localStorage.setItem('GM_' + key, JSON.stringify(value));
+            console.log(`[Mock GM_setValue] ${key}:`, value);
+        };
+        window.GM_getValue = function(key, defaultValue) {
+            const data = localStorage.getItem('GM_' + key);
+            try { return data ? JSON.parse(data) : defaultValue; } 
+            catch (e) { return defaultValue; }
+        };
+        // Note: The built tracker.user.js script is automatically injected 
+        // into this HTML by HtmlWebpackPlugin when running 'npm run dev'.
+        // No manual <script> tag is needed!
+    </script>
 </head>
 <body style="background-color: #f0f2f5; padding: 20px; font-family: sans-serif;">
     <div style="max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
