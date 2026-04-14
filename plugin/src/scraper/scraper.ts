@@ -3,6 +3,7 @@ import {
   BC_FORUM_FANDOM_ID,
   BC_FORUM_ALT_ID,
   BC_FORUM_COMPLETED_ID,
+  BASE_URL,
 } from '../constants';
 import { showNotification } from '../ui/notifications';
 import type { PostDTO } from '@shared/dto/post.dto'; // Reuse if possible or redefine type
@@ -10,14 +11,6 @@ import type { PostDTO } from '@shared/dto/post.dto'; // Reuse if possible or red
 export interface ScraperConfig {
   username: string;
   startDate: Date;
-}
-
-export interface ScrapedPost {
-  postId: string;
-  topicTitle: string;
-  charCount: number;
-  date: number;
-  url: string;
 }
 
 // Helper to delay execution
@@ -40,11 +33,11 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
     searchParams.append('show_as', 'posts');
 
     // Add forums per user request standard syntax
-    [BC_FORUM_FANDOM_ID, BC_FORUM_ALT_ID, BC_FORUM_COMPLETED_ID].forEach(id => {
+    [BC_FORUM_FANDOM_ID, BC_FORUM_ALT_ID, BC_FORUM_COMPLETED_ID].forEach((id) => {
       searchParams.append('forum[]', id.toString());
     });
 
-    const searchUrl = `https://${BC_FORUM_DOMAIN}/search.php?${searchParams.toString()}`;
+    const searchUrl = `${BASE_URL}/search.php?${searchParams.toString()}`;
 
     // Simulate real browser request
     const response = await fetch(searchUrl, {
@@ -61,7 +54,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
 
     let pageCount = 0;
     const maxPages = 10;
-    const allPosts: ScrapedPost[] = [];
+    const allPosts: PostDTO[] = [];
     let isOlderFound = false;
 
     // We reached the results page. Now loop through pagination.
@@ -137,7 +130,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
             topicTitle,
             charCount: cleanText.length,
             date: postDate.getTime(),
-            url: url.replace(DEV_HOSTNAME || '', `https://${BC_FORUM_DOMAIN}`), // Ensure absolute URL
+            url: url.replace(DEV_HOSTNAME || '', BASE_URL), // Ensure absolute URL
           });
         }
       }
@@ -153,7 +146,7 @@ export async function runScraper(config: ScraperConfig): Promise<void> {
         if (nextHref) {
           const absoluteNext = nextHref.startsWith('http')
             ? nextHref
-            : `https://${BC_FORUM_DOMAIN}/${nextHref.replace(/^\//, '')}`;
+            : `${BASE_URL}/${nextHref.replace(/^\//, '')}`;
 
           showNotification(
             `Загрузка страницы ${pageCount + 1}... (${allPosts.length} постов найдено)`,

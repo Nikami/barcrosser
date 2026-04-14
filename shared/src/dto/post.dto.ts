@@ -4,5 +4,4 @@ export interface PostDTO {
   charCount: number;
   date: number; // Timestamp
   url: string;
-  forumId: string;
 }
